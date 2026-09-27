@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Servis murojaatlari</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #1f2937;
+    }
+
+    .header {
+      background: #111827;
+      color: white;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 21px;
+    }
+
+    .admin-name {
+      font-size: 14px;
+      color: #d1d5db;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 25px auto;
+      padding: 0 20px;
+    }
+
+    .toolbar {
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    input,
+    select,
+    textarea {
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      padding: 10px 12px;
+      font-size: 14px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #2563eb;
+    }
+
+    #searchInput {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .requests-table {
+      width: 100%;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: #f9fafb;
+      text-align: left;
+      padding: 13px;
+      font-size: 13px;
+      color: #6b7280;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    tr:hover {
+      background: #f9fafb;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .source-web {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .source-telegram {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .status {
+      padding: 7px;
+      font-size: 12px;
+      min-width: 125px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .btn-view {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-view:hover {
+      background: #1d4ed8;
+    }
+
+    .modal-background {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal {
+      background: white;
+      max-width: 800px;
+      margin: 40px auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .modal-header {
+      background: #111827;
+      color: white;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 18px;
+    }
+
+    .close {
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .info-box {
+      background: #f9fafb;
+      padding: 12px;
+      border-radius: 7px;
+    }
+
+    .info-label {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .info-value {
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    .request-text {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding-top: 5px;
+    }
+
+    .btn-send {
+      background: #16a34a;
+      color: white;
+      padding: 11px 22px;
+    }
+
+    .btn-send:hover {
+      background: #15803d;
+    }
+
+    .btn-cancel {
+      background: #e5e7eb;
+      color: #374151;
+      padding: 11px 22px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px;
+      color: #6b7280;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+    }
+
+    .toast {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      background: #111827;
+      color: white;
+      padding: 14px 18px;
+      border-radius: 8px;
+      display: none;
+      z-index: 2000;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 900px) {
+      .requests-table {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 850px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header {
+        padding: 15px;
+      }
+
+      .container {
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <h1>Servis murojaatlari</h1>
+  <div class="admin-name">Admin panel</div>
+</header>
+
+<div class="container">
+
+  <div class="toolbar">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Murojaat raqami, ism yoki telefon bo‘yicha qidirish..."
+      oninput="renderRequests()"
+    >
+
+    <select id="statusFilter" onchange="renderRequests()">
+      <option value="">Barcha statuslar</option>
+      <option value="Yangi">Yangi</option>
+      <option value="Jarayonda">Jarayonda</option>
+      <option value="Javob berildi">Javob berildi</option>
+      <option value="Yopildi">Yopildi</option>
+    </select>
+
+  </div>
+
+  <div class="requests-table">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Sana</th>
+          <th>Murojaatchi</th>
+          <th>Telefon</th>
+          <th>Manba</th>
+          <th>Status</th>
+          <th>Amal</th>
+        </tr>
+      </thead>
+
+      <tbody id="requestsBody">
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div
+  class="modal-background"
+  id="modalBackground"
+  onclick="closeModalOutside(event)"
+>
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>
+        Murojaat №<span id="modalRequestId"></span>
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+      <div class="info-grid">
+
+        <div class="info-box">
+          <div class="info-label">Murojaatchi</div>
+          <div class="info-value" id="modalName"></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Telefon</div>
+          <div class="info-value" id="modalPhone"></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Model</div>
+          <div class="info-value" id="modalModel"></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Seriya raqami</div>
+          <div class="info-value" id="modalSerial"></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Sana</div>
+          <div class="info-value" id="modalDate"></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Manba</div>
+          <div class="info-value" id="modalSource"></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Chat ID</div>
+          <div class="info-value" id="modalChatId"></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Session ID</div>
+          <div class="info-value" id="modalSessionId"></div>
+        </div>
+
+      </div>
+
+
+      <div class="info-label">
+        MUROJAAT MAZMUNI
+      </div>
+
+      <div
+        class="request-text"
+        id="modalComment"
+      ></div>
+
+
+      <div class="form-group">
+
+        <label for="modalStatus">
+          Status
+        </label>
+
+        <select id="modalStatus">
+
+          <option value="Yangi">
+            Yangi
+          </option>
+
+          <option value="Jarayonda">
+            Jarayonda
+          </option>
+
+          <option value="Javob berildi">
+            Javob berildi
+          </option>
+
+          <option value="Yopildi">
+            Yopildi
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="modalAnswer">
+          Javob
+        </label>
+
+        <textarea
+          id="modalAnswer"
+          placeholder="Murojaatchiga yuboriladigan javobni yozing..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-cancel"
+          onclick="closeModal()"
+        >
+          Bekor qilish
+        </button>
+
+        <button
+          class="btn btn-send"
+          onclick="sendReply()"
+        >
+          Jo‘natish
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<script>
+
+/*
+==========================================================
+N8N SOZLAMALARI
+==========================================================
+
+Hozircha URL lar bo‘sh.
+
+Keyinchalik n8n Webhook URL larini shu yerga qo‘yamiz.
+
+Masalan:
+
+GET_REQUESTS_URL:
+https://n8ntest.uz/webhook/admin-requests
+
+SEND_REPLY_URL:
+https://n8ntest.uz/webhook/admin-reply
+
+==========================================================
+*/
+
+const CONFIG = {
+
+  GET_REQUESTS_URL: "",
+
+  SEND_REPLY_URL: ""
+
+};
+
+
+/*
+==========================================================
+VAQTINCHALIK TEST MA'LUMOTLARI
+==========================================================
+
+Hozir n8n ulanmaganligi sababli
+admin panelni ko‘rish uchun test ma'lumotlari ishlatiladi.
+
+Keyinchalik bu qism Google Sheets -> n8n
+orqali keladigan real ma'lumot bilan almashtiriladi.
+==========================================================
+*/
+
+let requests = [
+
+  {
+    request_id: 10032,
+    name: "Utkir",
+    phone: "+9989066569",
+    model: "iPhone 12",
+    serial_number: "",
+    data: "26.09.2026 06:01",
+    comment:
+      "Telefon yaxshi zaryad olmayapti; boshqa zaryadlash kabellari bilan sinab ko‘rildi, holat o‘zgarmadi.",
+    source: "website",
+    chat_id: "",
+    session_id: "web-h6a5se",
+    status: "Yangi",
+    answer: ""
+  },
+
+  {
+    request_id: 10033,
+    name: "Anvar",
+    phone: "+998901234567",
+    model: "Samsung Galaxy S23",
+    serial_number: "SN5434536447",
+    data: "26.09.2026 06:15",
+    comment:
+      "Telefon o‘chib qolmoqda.",
+    source: "telegram",
+    chat_id: "4871",
+    session_id: "",
+    status: "Jarayonda",
+    answer: ""
+  }
+
+];
+
+
+let selectedRequest = null;
+
+
+/*
+==========================================================
+RO‘YXATNI CHIQARISH
+==========================================================
+*/
+
+function renderRequests() {
+
+  const tbody =
+    document.getElementById("requestsBody");
+
+  const search =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const status =
+    document
+      .getElementById("statusFilter")
+      .value;
+
+
+  const filtered =
+    requests.filter(request => {
+
+      const matchesSearch =
+        !search ||
+        String(request.request_id)
+          .toLowerCase()
+          .includes(search) ||
+
+        String(request.name)
+          .toLowerCase()
+          .includes(search) ||
+
+        String(request.phone)
+          .toLowerCase()
+          .includes(search);
+
+      const matchesStatus =
+        !status ||
+        request.status === status;
+
+      return matchesSearch && matchesStatus;
+
+    });
+
+
+  if (filtered.length === 0) {
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" class="empty">
+          Murojaatlar topilmadi
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+
+  tbody.innerHTML = filtered.map(request => {
+
+    const sourceClass =
+      request.source === "telegram"
+        ? "source-telegram"
+        : "source-web";
+
+    const sourceText =
+      request.source === "telegram"
+        ? "Telegram"
+        : "Web";
+
+
+    return `
+
+      <tr>
+
+        <td>
+          <strong>
+            ${escapeHtml(request.request_id)}
+          </strong>
+        </td>
+
+        <td>
+          ${escapeHtml(request.data || "")}
+        </td>
+
+        <td>
+          ${escapeHtml(request.name || "")}
+        </td>
+
+        <td>
+          ${escapeHtml(request.phone || "")}
+        </td>
+
+        <td>
+          <span class="source ${sourceClass}">
+            ${sourceText}
+          </span>
+        </td>
+
+        <td>
+
+          <select
+            class="status"
+            onchange="quickStatusChange(${request.request_id}, this.value)"
+          >
+
+            ${statusOption("Yangi", request.status)}
+            ${statusOption("Jarayonda", request.status)}
+            ${statusOption("Javob berildi", request.status)}
+            ${statusOption("Yopildi", request.status)}
+
+          </select>
+
+        </td>
+
+        <td>
+
+          <button
+            class="btn btn-view"
+            onclick="openRequest(${request.request_id})"
+          >
+            Ko‘rish
+          </button>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  }).join("");
+
+}
+
+
+/*
+==========================================================
+STATUS OPTION
+==========================================================
+*/
+
+function statusOption(value, current) {
+
+  return `
+    <option
+      value="${value}"
+      ${value === current ? "selected" : ""}
+    >
+      ${value}
+    </option>
+  `;
+
+}
+
+
+/*
+==========================================================
+MUROJAATNI OCHISH
+==========================================================
+*/
+
+function openRequest(requestId) {
+
+  selectedRequest =
+    requests.find(
+      request =>
+        Number(request.request_id) === Number(requestId)
+    );
+
+
+  if (!selectedRequest) {
+    return;
+  }
+
+
+  document.getElementById("modalRequestId").textContent =
+    selectedRequest.request_id;
+
+  document.getElementById("modalName").textContent =
+    selectedRequest.name || "-";
+
+  document.getElementById("modalPhone").textContent =
+    selectedRequest.phone || "-";
+
+  document.getElementById("modalModel").textContent =
+    selectedRequest.model || "-";
+
+  document.getElementById("modalSerial").textContent =
+    selectedRequest.serial_number || "-";
+
+  document.getElementById("modalDate").textContent =
+    selectedRequest.data || "-";
+
+  document.getElementById("modalSource").textContent =
+    selectedRequest.source || "-";
+
+  document.getElementById("modalChatId").textContent =
+    selectedRequest.chat_id || "-";
+
+  document.getElementById("modalSessionId").textContent =
+    selectedRequest.session_id || "-";
+
+  document.getElementById("modalComment").textContent =
+    selectedRequest.comment || "-";
+
+  document.getElementById("modalStatus").value =
+    selectedRequest.status || "Yangi";
+
+  document.getElementById("modalAnswer").value =
+    selectedRequest.answer || "";
+
+
+  document.getElementById("modalBackground").style.display =
+    "block";
+
+}
+
+
+/*
+==========================================================
+MODALNI YOPISH
+==========================================================
+*/
+
+function closeModal() {
+
+  document.getElementById("modalBackground").style.display =
+    "none";
+
+  selectedRequest = null;
+
+}
+
+
+function closeModalOutside(event) {
+
+  if (
+    event.target ===
+    document.getElementById("modalBackground")
+  ) {
+
+    closeModal();
+
+  }
+
+}
+
+
+/*
+==========================================================
+TEZKOR STATUS O‘ZGARTIRISH
+==========================================================
+*/
+
+async function quickStatusChange(requestId, status) {
+
+  const request =
+    requests.find(
+      item =>
+        Number(item.request_id) === Number(requestId)
+    );
+
+
+  if (!request) {
+    return;
+  }
+
+
+  request.status = status;
+
+
+  /*
+  --------------------------------------------
+  KEYIN N8N GA YUBORILADI
+  --------------------------------------------
+
+  await fetch(CONFIG.SEND_REPLY_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      request_id: request.request_id,
+      status: request.status,
+      answer: request.answer || ""
+    })
+  });
+
+  --------------------------------------------
+  */
+
+
+  showToast(
+    `№${requestId} statusi "${status}" bo‘ldi`
+  );
+
+}
+
+
+/*
+==========================================================
+JAVOB JO‘NATISH
+==========================================================
+*/
+
+async function sendReply() {
+
+  if (!selectedRequest) {
+    return;
+  }
+
+
+  const status =
+    document.getElementById("modalStatus").value;
+
+  const answer =
+    document.getElementById("modalAnswer").value.trim();
+
+
+  if (!answer) {
+
+    showToast(
+      "Iltimos, javob matnini yozing."
+    );
+
+    return;
+
+  }
+
+
+  /*
+  --------------------------------------------
+  MA'LUMOTLARNI YANGILAYMIZ
+  --------------------------------------------
+  */
+
+  selectedRequest.status = status;
+  selectedRequest.answer = answer;
+
+
+  /*
+  --------------------------------------------
+  HOZIRCHA TEST REJIMI
+  --------------------------------------------
+  */
+
+  if (!CONFIG.SEND_REPLY_URL) {
+
+    showToast(
+      `№${selectedRequest.request_id} javobi tayyorlandi.`
+    );
+
+    renderRequests();
+
+    closeModal();
+
+    return;
+
+  }
+
+
+  /*
+  --------------------------------------------
+  KEYIN N8N GA YUBORILADI
+  --------------------------------------------
+  */
+
+  try {
+
+    const response =
+      await fetch(
+        CONFIG.SEND_REPLY_URL,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+
+            request_id:
+              selectedRequest.request_id,
+
+            status:
+              selectedRequest.status,
+
+            answer:
+              selectedRequest.answer,
+
+            source:
+              selectedRequest.source,
+
+            chat_id:
+              selectedRequest.chat_id,
+
+            session_id:
+              selectedRequest.session_id
+
+          })
+
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        `Server xatosi: ${response.status}`
+      );
+
+    }
+
+
+    showToast(
+      "Javob muvaffaqiyatli jo‘natildi."
+    );
+
+
+    renderRequests();
+
+    closeModal();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      "Javobni jo‘natishda xatolik yuz berdi."
+    );
+
+  }
+
+}
+
+
+/*
+==========================================================
+N8N DAN MUROJAATLARNI OLISH
+==========================================================
+*/
+
+async function loadRequestsFromN8N() {
+
+  if (!CONFIG.GET_REQUESTS_URL) {
+
+    console.log(
+      "N8N URL hali kiritilmagan. Test ma'lumotlari ishlatilmoqda."
+    );
+
+    renderRequests();
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        CONFIG.GET_REQUESTS_URL,
+        {
+          method: "GET"
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        `Server xatosi: ${response.status}`
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    /*
+    N8N quyidagiga o‘xshash
+    JSON qaytaradi:
+
+    {
+      "requests": [...]
+    }
+
+    */
+
+    if (Array.isArray(data)) {
+
+      requests = data;
+
+    } else if (Array.isArray(data.requests)) {
+
+      requests = data.requests;
+
+    } else {
+
+      throw new Error(
+        "Murojaatlar formati noto‘g‘ri."
+      );
+
+    }
+
+
+    renderRequests();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      "Murojaatlarni yuklashda xatolik."
+    );
+
+  }
+
+}
+
+
+/*
+==========================================================
+HTML XAVFSIZLIGI
+==========================================================
+*/
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/*
+==========================================================
+XABARNOMA
+==========================================================
+*/
+
+function showToast(message) {
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.style.display = "block";
+
+
+  setTimeout(() => {
+
+    toast.style.display = "none";
+
+  }, 3000);
+
+}
+
+
+/*
+==========================================================
+START
+==========================================================
+*/
+
+loadRequestsFromN8N();
+
+</script>
+
+</body>
+</html><input type="text" name="" id="">
