@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NewTech-Phone do'koni</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --paper: #FFFFFF;
+    --paper-2: #E9F9EE;
+    --ink: #1B2420;
+    --ink-soft: #5C6B62;
+    --green: #16A34A;
+    --green-dark: #0E7C39;
+    --amber: #F59E0B;
+    --line: #D3F0DC;
+    --white: #FFFFFF;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+  }
+  h1,h2,h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    margin: 0;
+  }
+  a{ color: inherit; }
+  button{ font-family: inherit; cursor: pointer; }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .brand-mark{
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: var(--green);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--white);
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: 17px;
+  }
+  .brand-name{ font-size: 19px; letter-spacing: 0.01em; }
+
+  nav{ display:flex; gap: 6px; }
+  .nav-btn{
+    border:none;
+    background: transparent;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-btn:hover{ background: var(--paper-2); color: var(--ink); }
+  .nav-btn.active{ background: var(--green); color: var(--white); }
+
+  main{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  .view{ display:none; padding: 48px 0 80px; }
+  .view.active{ display:block; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items:center;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+  .hero h1{
+    font-size: 42px;
+    line-height: 1.12;
+    max-width: 480px;
+  }
+  .hero p{
+    color: var(--ink-soft);
+    font-size: 16.5px;
+    max-width: 420px;
+    margin-top: 16px;
+  }
+  .hero-art{
+    aspect-ratio: 4/3;
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 30% 30%, #BEF0CE 0%, transparent 55%),
+      radial-gradient(circle at 75% 65%, #D3F0DC 0%, transparent 50%),
+      var(--paper-2);
+    border: 1px solid var(--line);
+    position: relative;
+    overflow:hidden;
+  }
+  .hero-art .tag{
+    position:absolute;
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .hero-art .tag.t1{ top: 18%; left: 12%; }
+  .hero-art .tag.t2{ bottom: 20%; right: 14%; }
+
+  /* ---------- Filters ---------- */
+  .filters{
+    display:flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .filter-chip{
+    border: 1px solid var(--line);
+    background: var(--white);
+    padding: 8px 15px;
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .filter-chip.active{
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--white);
+  }
+
+  /* ---------- Product grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .card{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+  }
+  .card .thumb{
+    width: 100%;
+    aspect-ratio: 1.4/1;
+    border-radius: 10px;
+    background: var(--paper-2);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 34px;
+  }
+  .card .cat{
+    font-size: 12.5px;
+    color: var(--green-dark);
+  }
+  .card h3{ font-size: 18px; }
+  .card .desc{ color: var(--ink-soft); font-size: 14px; flex-grow:1; }
+  .card .foot{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top: 4px;
+  }
+  .card .price{ font-family:'Fraunces', serif; font-size: 18px; }
+  .card .buy{
+    border: 1px solid var(--ink);
+    background: transparent;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 13.5px;
+  }
+  .card .buy:hover{ background: var(--ink); color: var(--white); }
+
+  /* ---------- Chat ---------- */
+  .chat-shell{
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow:hidden;
+    background: var(--white);
+    min-height: 520px;
+  }
+  .chat-side{
+    background: var(--paper-2);
+    border-right: 2px solid var(--green);
+    padding: 24px 20px;
+  }
+  .chat-side h3{ font-size: 17px; margin-bottom: 6px; }
+  .chat-side p{ font-size: 13.5px; color: var(--ink-soft); margin: 0 0 20px; }
+  .quick-q{
+    display:block;
+    width:100%;
+    text-align:left;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13.5px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .quick-q:hover{ border-color: var(--green); }
+  .conn-status{
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--white);
+    border: 1px solid var(--line);
+  }
+  .conn-status.ok{ color: var(--green-dark); border-color: var(--green); }
+  .conn-status.err{ color: #A33; border-color: #D8A6A6; }
+  .msg.error{
+    align-self:flex-start;
+    background: #FBEAEA;
+    color: #A33;
+    border-bottom-left-radius: 4px;
+  }
+
+  .chat-main{ display:flex; flex-direction:column; }
+  .chat-log{
+    flex:1;
+    padding: 24px;
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+    overflow-y: auto;
+    max-height: 460px;
+  }
+  .msg{
+    max-width: 72%;
+    padding: 11px 15px;
+    border-radius: 14px;
+    font-size: 14.5px;
+    line-height: 1.45;
+  }
+  .msg.bot{
+    align-self:flex-start;
+    background: var(--paper-2);
+    border-bottom-left-radius: 4px;
+  }
+  .msg.user{
+    align-self:flex-end;
+    background: var(--green);
+    color: var(--white);
+    border-bottom-right-radius: 4px;
+  }
+  .chat-input-row{
+    display:flex;
+    gap: 10px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--line);
+  }
+  .chat-input-row input{
+    flex:1;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14.5px;
+    font-family: inherit;
+    background: var(--paper);
+  }
+  .chat-input-row input:focus{ outline: 2px solid var(--green); outline-offset: 1px; }
+  .send-btn{
+    border:none;
+    background: var(--green);
+    color: var(--white);
+    padding: 0 20px;
+    border-radius: 10px;
+    font-size: 14.5px;
+  }
+  .send-btn:hover{ background: var(--green-dark); }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 22px 24px;
+    text-align:center;
+    color: var(--ink-soft);
+    font-size: 13.5px;
+  }
+
+  @media (max-width: 780px){
+    .hero{ grid-template-columns: 1fr; }
+    .hero h1{ font-size: 32px; }
+    .grid{ grid-template-columns: repeat(2, 1fr); }
+    .chat-shell{ grid-template-columns: 1fr; }
+    .chat-side{ border-right:none; border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 480px){
+    .grid{ grid-template-columns: 1fr; }
+    .nav-btn{ padding: 8px 11px; font-size: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="brand">
+      <div class="brand-mark">N</div>
+      <div class="brand-name">NewTech-Phone do'koni</div>
+    </div>
+    <nav>
+      <button class="nav-btn active" data-view="mahsulotlar">Mahsulotlar</button>
+      <button class="nav-btn" data-view="chat">Chat</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- MAHSULOTLAR -->
+  <section class="view active" id="mahsulotlar">
+    <div class="hero">
+      <div>
+        <h1>Original smartfonlar, ishonchli narxlarda</h1>
+        <p>NewTech-Phone — iPhone, Samsung va Redmi smartfonlari do'koni. Modelni tanlang, narxini bilib oling, savolingiz bo'lsa Chat bo'limida so'rang.</p>
+      </div>
+      <div class="hero-art">
+        <div class="tag t1">100% original mahsulot</div>
+        <div class="tag t2">Rasmiy kafolat bilan</div>
+      </div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter-chip active" data-cat="hammasi">Hammasi</button>
+      <button class="filter-chip" data-cat="iphone">iPhone</button>
+      <button class="filter-chip" data-cat="samsung">Samsung</button>
+      <button class="filter-chip" data-cat="xiaomi">Redmi</button>
+    </div>
+
+    <div class="grid" id="product-grid"></div>
+  </section>
+
+  <!-- CHAT -->
+  <section class="view" id="chat">
+    <div class="chat-shell">
+      <div class="chat-side">
+        <h3>Tez-tez so'raladigan savollar</h3>
+        <p>Savolingizni yozing yoki quyidagilardan birini bosing.</p>
+        <button class="quick-q" data-q="Yetkazib berish qancha turadi?">Yetkazib berish qancha turadi?</button>
+        <button class="quick-q" data-q="Ish vaqtlaringiz qanday?">Ish vaqtlaringiz qanday?</button>
+        <button class="quick-q" data-q="Naqd va karta orqali to'lash mumkinmi?">To'lov turlari qanday?</button>
+        <button class="quick-q" data-q="Mahsulot qaytarish mumkinmi?">Mahsulot qaytarish mumkinmi?</button>
+        <div id="conn-status" class="conn-status">⚙️ API manzili sozlanmagan</div>
+      </div>
+      <div class="chat-main">
+        <div class="chat-log" id="chat-log">
+          <div class="msg bot">Assalomu alaykum! Sizga qanday yordam bera olaman?</div>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chat-input" placeholder="Xabaringizni yozing...">
+          <button class="send-btn" id="send-btn">Yuborish</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 NewTech-Phone do'koni</footer>
+
+<script>
+  // ---------- Navigation ----------
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const views = document.querySelectorAll('.view');
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      navBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      views.forEach(v => v.classList.remove('active'));
+      document.getElementById(btn.dataset.view).classList.add('active');
+    });
+  });
+
+  // Boshqa joydan (masalan "Buyurtma" tugmasidan) Chat bo'limiga o'tish uchun
+  function goToChatView(){
+    navBtns.forEach(b => b.classList.remove('active'));
+    document.querySelector('.nav-btn[data-view="chat"]').classList.add('active');
+    views.forEach(v => v.classList.remove('active'));
+    document.getElementById('chat').classList.add('active');
+  }
+
+  // Mahsulot buyurtmasi haqida xabarni chatga qo'yib, bot'ga avtomatik yuborish.
+  // Bu quyida e'lon qilingan chatInput/handleSend'ga tayanadi — chunki funksiya
+  // faqat bosilganda (ya'ni butun skript ishga tushgandan keyin) chaqiriladi,
+  // bu joyda muammo bo'lmaydi.
+  function sendOrderToBot(text){
+    chatInput.value = text;
+    handleSend();
+  }
+
+  // ---------- Product data ----------
+  // Har bir mahsulotga rasm qo'yish uchun "icon" o'rniga "image" maydonini
+  // ishlatib, quyidagi qatorni: <div class="thumb">${p.icon}</div>
+  // shunga almashtiring: <div class="thumb"><img src="${p.image}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></div>
+  const products = [
+    { name: "iPhone 17 256GB — Lavender (Binafsha)", cat: "iphone", price: "12 400 000 so'm", desc: "256 GB xotira, Lavender (binafsha) rangda.", icon: "📱" },
+    { name: "iPhone 17 256GB — Red (Qizil)", cat: "iphone", price: "12 300 000 so'm", desc: "256 GB xotira, qizil rangda.", icon: "📱" },
+    { name: "iPhone 17 256GB — Sage (Och yashil)", cat: "iphone", price: "12 400 000 so'm", desc: "256 GB xotira, och yashil rangda.", icon: "📱" },
+    { name: "iPhone 17 256GB — White (Oq)", cat: "iphone", price: "12 500 000 so'm", desc: "256 GB xotira, oq rangda.", icon: "📱" },
+    { name: "iPhone 17 256GB — Mist Blue (Ko'k)", cat: "iphone", price: "12 500 000 so'm", desc: "256 GB xotira, ko'k rangda.", icon: "📱" },
+    { name: "iPhone 16 Pro Max 256GB", cat: "iphone", price: "18 500 000 so'm", desc: "Desert Titanium, Natural Titanium, Black, White ranglarida mavjud.", icon: "📱" },
+    { name: "iPhone 16 Pro 128GB", cat: "iphone", price: "14 200 000 so'm", desc: "Desert Titanium, Black, White, Natural Titanium ranglarida mavjud.", icon: "📱" },
+    { name: "iPhone 15 128GB", cat: "iphone", price: "10 300 000 so'm", desc: "Black, Blue, Green, Yellow, Pink ranglarida mavjud.", icon: "📱" },
+    { name: "Galaxy S26 Ultra 5G 12/256GB", cat: "samsung", price: "15 840 000 so'm", desc: "Titanium Black, Titanium White, Sky Blue, Cobalt Violet ranglarida mavjud.", icon: "📱" },
+    { name: "Galaxy S26 12/256GB", cat: "samsung", price: "11 900 000 so'm", desc: "Black, Cobalt Violet, White ranglarida mavjud.", icon: "📱" },
+    { name: "Galaxy A56 5G 8/128GB", cat: "samsung", price: "4 246 000 so'm", desc: "Awesome Gray, Awesome White, Awesome Lilac ranglarida mavjud.", icon: "📱" },
+    { name: "Galaxy A36 5G 8/128GB", cat: "samsung", price: "3 850 000 so'm", desc: "Awesome Black, Light Blue, Light Violet ranglarida mavjud.", icon: "📱" },
+    { name: "Redmi Note 14S 8/256GB", cat: "xiaomi", price: "2 472 000 so'm", desc: "Ocean Blue, Graphite Gray, Midnight Black ranglarida mavjud.", icon: "📱" },
+    { name: "Redmi Note 12 Pro+ 8/256GB", cat: "xiaomi", price: "2 000 000 so'm", desc: "Polar White, Midnight Black, Sky Blue ranglarida mavjud.", icon: "📱" }
+  ];
+
+  const grid = document.getElementById('product-grid');
+  let currentList = []; // hozir ekranda ko'rsatilayotgan mahsulotlar ro'yxati
+
+  function renderProducts(filter){
+    grid.innerHTML = "";
+    currentList = products.filter(p => filter === "hammasi" || p.cat === filter);
+    currentList.forEach((p, idx) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="thumb">${p.icon}</div>
+        <div class="cat">${p.cat}</div>
+        <h3>${p.name}</h3>
+        <div class="desc">${p.desc}</div>
+        <div class="foot">
+          <div class="price">${p.price}</div>
+          <button class="buy" data-idx="${idx}">Buyurtma</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+  renderProducts("hammasi");
+
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      renderProducts(chip.dataset.cat);
+    });
+  });
+
+  // "Buyurtma" bosilganda: tugmani belgilaymiz, Chat bo'limiga o'tamiz
+  // va shu mahsulot haqida xabarni bot'ga avtomatik yuboramiz.
+  grid.addEventListener('click', (e) => {
+    if(e.target.classList.contains('buy')){
+      const idx = e.target.dataset.idx;
+      const product = currentList[idx];
+      if(!product) return;
+
+      e.target.textContent = "Qabul qilindi ✓";
+      e.target.disabled = true;
+
+      goToChatView();
+      const orderText = `Salom! Men quyidagi mahsulotni buyurtma qilmoqchiman:\n"${product.name}" — ${product.price}.`;
+      sendOrderToBot(orderText);
+    }
+  });
+
+  // =====================================================================
+  // CHAT-BOT API SOZLAMALARI — shu yerni o'zingizning manzilingizga
+  // moslang. Boshqa hech narsani o'zgartirish shart emas.
+  // =====================================================================
+  const N8N_WEBHOOK_URL = "https://n8ntest.uz/webhook/d4da92b7-e5a9-483b-aa02-cdscsdcscsdcsd";
+const CHATBOT_CONFIG = {
+    endpoint: N8N_WEBHOOK_URL,
+    method: "POST",
+    authHeader: "",
+    requestBodyKey: "message",
+    sessionIdKey: "session_id",
+    responseTextPath: "output"
+};
+  // =====================================================================
+
+  const chatLog = document.getElementById('chat-log');
+  const chatInput = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('send-btn');
+  const connStatus = document.getElementById('conn-status');
+  const sessionId = 'web-' + Math.random().toString(36).slice(2, 10);
+
+  if(CHATBOT_CONFIG.endpoint){
+    connStatus.textContent = "🔧 API manzili kiritilgan";
+  } else {
+    connStatus.textContent = "⚙️ API manzili sozlanmagan — pastdagi CHATBOT_CONFIG'ni to'ldiring";
+    connStatus.classList.add('err');
+  }
+
+  function getByPath(obj, path){
+    return path.split('.').reduce((o, key) => (o && o[key] !== undefined) ? o[key] : undefined, obj);
+  }
+
+  function addMessage(text, sender){
+    const msg = document.createElement('div');
+    msg.className = `msg ${sender}`;
+    msg.textContent = text;
+    chatLog.appendChild(msg);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return msg;
+  }
+
+  async function askChatbot(text){
+    if(!CHATBOT_CONFIG.endpoint){
+      return { error: true, text: "API manzili hali sozlanmagan. Sahifa kodidagi CHATBOT_CONFIG.endpoint qatoriga o'z chat-bot manzilingizni kiriting." };
+    }
+
+    const headers = { "Content-Type": "application/json" };
+    if(CHATBOT_CONFIG.authHeader){
+      headers["Authorization"] = CHATBOT_CONFIG.authHeader;
+    }
+
+    const body = {
+      [CHATBOT_CONFIG.requestBodyKey]: text,
+      [CHATBOT_CONFIG.sessionIdKey]: sessionId
+    };
+
+    try{
+      const res = await fetch(CHATBOT_CONFIG.endpoint, {
+        method: CHATBOT_CONFIG.method,
+        headers,
+        body: JSON.stringify(body)
+      });
+
+      if(!res.ok){
+        return { error: true, text: `Bot bilan bog'lanishda xatolik (server javobi: ${res.status}).` };
+      }
+
+      const data = await res.json();
+      const reply = getByPath(data, CHATBOT_CONFIG.responseTextPath);
+
+      if(reply === undefined){
+        return { error: true, text: "Bot javob qaytardi, lekin javob matnini topib bo'lmadi. CHATBOT_CONFIG.responseTextPath sozlamasini tekshiring." };
+      }
+      return { error: false, text: String(reply) };
+    } catch(err){
+      return { error: true, text: "Bot bilan bog'lanib bo'lmadi. Internet aloqasi yoki API manzilini tekshiring." };
+    }
+  }
+
+  async function handleSend(){
+    const text = chatInput.value.trim();
+    if(!text) return;
+    addMessage(text, 'user');
+    chatInput.value = "";
+    sendBtn.disabled = true;
+
+    const typing = addMessage("Yozmoqda...", 'bot');
+    const result = await askChatbot(text);
+    typing.remove();
+
+    if(result.error){
+      addMessage(result.text, 'error');
+      connStatus.textContent = "🔴 Ulanishda muammo";
+      connStatus.classList.remove('ok');
+      connStatus.classList.add('err');
+    } else {
+      addMessage(result.text, 'bot');
+      connStatus.textContent = "🟢 Bot bilan ulangan";
+      connStatus.classList.remove('err');
+      connStatus.classList.add('ok');
+    }
+    sendBtn.disabled = false;
+    chatInput.focus();
+  }
+
+  sendBtn.addEventListener('click', handleSend);
+  chatInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') handleSend();
+  });
+
+  document.querySelectorAll('.quick-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      chatInput.value = btn.dataset.q;
+      handleSend();
+    });
+  });
+</script>
+
+</body>
+</html>
+<script async src="/.netlify/scripts/hud?variant=owner-private" data-nf-variant="owner-private" data-netlify-site-id="4a3f5ca9-26bf-49eb-a690-f8eed58ee21a" data-app-host="app.netlify.com"></script>

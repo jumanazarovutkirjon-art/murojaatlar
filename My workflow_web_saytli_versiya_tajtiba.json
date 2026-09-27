@@ -1,0 +1,1129 @@
+{
+  "name": "My workflow_web_saytli_versiya_tajtiba",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -848,
+        -224
+      ],
+      "id": "c6d61c50-dc42-487e-8328-7e331d658217",
+      "name": "Telegram Trigger",
+      "webhookId": "1c970e01-365b-48e9-87af-d6fc8cff455b",
+      "credentials": {
+        "telegramApi": {
+          "id": "pU5YizmpGS5X4F9J",
+          "name": "n8n_test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        240
+      ],
+      "id": "2c0d73a7-3d78-4f1e-95a9-de4cdceb3920",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "sJbNPIiQFxridYfg",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1DZ9V-oAgAVbhIrkYLBUNu6O2fnFpTQ56Kfv2fHTva0E",
+          "mode": "list",
+          "cachedResultName": "n8nprojects",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DZ9V-oAgAVbhIrkYLBUNu6O2fnFpTQ56Kfv2fHTva0E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Лист1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DZ9V-oAgAVbhIrkYLBUNu6O2fnFpTQ56Kfv2fHTva0E/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        224
+      ],
+      "id": "8b7187c8-0a07-4784-b8ab-551b6a97bcbe",
+      "name": "Tovarlar_ro`yxati",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bgAX3RDWeKQFZO9k",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.user_message }}",
+        "options": {
+          "systemMessage": "Sen do`kon mahsulotlari haqida ma`lumot beruvchi sotuvchi yordamchisisan.Isming Skiper, senga isming nima , kim bu, kim siz , kim san degan savol berilganda : \" mening ismim Skiper  , NewTech-Phone do`koni sotuvchi yordamchisiman \" deb o`zingni tanishtir.Foydalanuvchilar bilan gaplashganda ularni oldingi yozgan savollarini eslab qolishga harakat qil, bir gapni qayta qayta takrorlamaslikka harakat qil. O`ningni bir marta tanishtir bitta foydalanuvchi id raqamiga qarab, har bir id qaram foydalanuvchi oldingi bersan savollarini eslab qolishga harakat qil.\nQachonki berilgan mahsulot malumotlar bazasidan topilmasa undan so`ng qo`shimcha kontaklarni bergin , unga qadar quyidagi xabarni yubormagin : Agar jadvalda ko`rsatilgan to`lov shartlaridan boshqa takliflar so`ralganda , \"Afsuski bunday shart hozida bizda mavjuda emas, qo`shimcha ma`lumot olish uchun \"  @Utkirjon7707 ga yoki 50 0057270 kontaklariga . \nAssalomu aleykum deb so`z boshlaganda: Vaaleykum assalom , sizga qanday yordam bera olaman deb javob qaytar. Noaniq so`zlar yozilganda masalan \"gsvcd\" , Valaykum assalom deb yozma, so`rov qabul qilinmadi , iltimos aniqlik kiriting deb yoz/\n Salomlashgandan so`ng, do`konimizga xush kelibsiz deb ayt.\nbitta user bilan gaplashganda qayta va qayta do`konimizga xush kelibsiz deb yozma/ har javob qaytarishda  'Oldingi savolingizga asosan ' deb yozay verma, oddiygina savolga jabob qaytar\nsavolga javob beryotganda oldingi so`rovnoma haqida gap ketayotganini tushungin.\nmasalan qandaydur telefon haqida malumot so`raldi, savolga javob olingandan so`ng yana savol berildi \"shuni oq rangi bormi\" shunday vaqtda tushungingi birinchi savoldagi telefonning oq rangi so`rayyapti.\nQandaydur telefon modeli yoki qaysidur rangi buyicha telefon bazada topilmasa, \"Afsuski siz so`ragan aynay shunaqasi yuq\" deb javob qaytar.\nAgar jadvalda ko`rsatilgan to`lov shartlaridan boshqa takliflar so`ralganda , \"Afsuski bunday shart hozida bizda mavjuda emas, qo`shimcha ma`lumot olish uchun \"  @Utkirjon7707 ga yoki 50 0057270 kontaklariga murojat qilishlarini ayt.\nQachonki sendga \"Tovarlar_ro`yxati\" google sheetda mavjud bo`lmagan savol berilsa ,  @Utkirjon7707 ga yoki 50 0057270 kontaklariga murojat qilishlarini ayt\nGoogle Sheets buyicha tizimga taluqli ma`lumorlarni userlarga yozma, \"Google Sheets\" so`zini umuman ishlatma. Do`kon tel nomer so`ralganda tog`ri javob ber\nFaqat oddiy matnda javob ber. Agar xaridor tovarni xariq qilmoqchi man deb javob bersa 1250 qisqa raqamga telefon qilishni ayt. faqat yangi telefonlr sotilishi hamda qo`shimcha ma`lumotlar uchun deb har doim javob qaytarma.\nsiz kimsiz deb savol berilganda Man sotuvchi yordamchisidan deb aytgin.\n\n\nGoogle Sheetsda siz so`ragan narsa topilmadi deb yozma. Google sheetsdagi ma`lumotlarda bu brend topilmadi deb yozma, aksinka javob berginki siz so`ragan tovar bizda hozircha yuq deb javob qaytar. qo`shimcha ma`lumot olish uchun @Utkirjon_7707 ga murojat qiling deb javob ber.\nfaqatgina google sheets da berilgan Savol Javoblarga mos raishda javob ber .Ishlatilgan tovarlar so`ralganda bizda faqat yangi tovarlar sotiladi deb javob ber.\nDo`konga oid savol berilmasa , \"Bu do`konimizga taluqli savol emas, boshqa savolingiz yuqmi \" deb javob qaytar.\n\nO`zingdan har xil javoblar uylab topma.\n\nGoogle Sheets dagi ma`lumotlardan boshqa turdagi telefonlar haqida savol berilmasa @Utkirjon7707 ga yoki +998500057270 kontaklariga murojat qilishlarini ayt.\nmisol uchun :\n ##do`konda qayday mahsulotlar bor\n\n**Input**\n\nuser - 2\n\n**output**\nYou - do`kon mahsulotlari haqida ma`lumot google sheets dagi Javov: qismida ko`rsatilgan , Do`konimiz telefonlar hamdda ularga aksesuarlar faoliyati bilan shug`ullanadi\n\n#Qo`shimcha topshiriq :Burutmalar qbul qilsih\n\nAgar foydalanuvchi mahsulot yoki tovar sotib olish istagini bildirsa, buyurtma qabul qilish jarayonini boshla.\n\nBuyurtma quyidagi ma'lumotlardan iborat bo`ladi:\n\n1. Foydalanuvchining ism-sharifi\n2. Kontakt uchun telefon raqami\n3. Mahsulot modeli\n4. Mahsulot rangi\n5. Mahsulot miqdori\n6. To'lov turi\n7. Yetkazib berish xizmatidan foydalanish yoki foydalanmaslik\n8. Agar yetkazib berish tanlansa, yetkazib berish manzili\n\nBUYURTMA QABUL QILISH QOIDALARI QUYIDAGICHA:\n\n- Har bir ma'lumotni foydalanuvchidan ketma-ket so'ra.\n- Foydalanuvchi oldingi xabarlarda bergan ma'lumotlarini eslab qol va qayta so'rama.\n- Yetishmayotgan ma'lumotlarni aniqlab bor.\n- Barcha 8 ta kerakli ma'lumot yig'ilmaguncha buyurtmani yakunlangan deb hisobla.\n- Yetkazib berish \"Yo'q\" bo'lsa, manzilni so'rash shart emas.\n- Barcha kerakli ma'lumotlar yig'ilgandan keyin ularni foydalanuvchiga to'liq ko'rsatib, tekshirtirib ol.\n\nMasalan:\n\n\"Buyurtmangiz bo`yicha ma'lumotlaringiz:\n\nIsm-sharif: Ali Valiyev\nTelefon: +998931234567\nModel: ...\nRang: ...\nMiqdor: ...\nTo'lov turi: ...\nYetkazib berish: ...\nManzil: ...\n\nBuyurtmani tasdiqlaysizmi?\"\n\nMUHIM:\n\n- Foydalanuvchi buyurtmani tasdiqlamaguncha buyurtma tasdiqlangan hisoblmasligi kerak.\n- Foydalanuvchi \"ha\", \"xa\", \"ha tasdiqlayman\", \"xa tasdiqlayman\", \"tasdiqlayman\", \"buyurtma bering\",\"buyurtmani yuboring\" , \"ok\" kabi aniq tasdiqlovchi javob bergandan keyingina buyurtmani tasdiqlangan deb hisobla.\n- Foydalanuvchi \"yo'q\", \"bekor qilinsin\", \"o'zgartiraman\", \"otmen bo`ldi\" yoki boshqa tasdiqlamaydigan javob bersa, ORDER_CONFIRMED holatini yaratma.\n- Agar foydalanuvchi ma'lumotlardan birini o'zgartirmoqchi bo'lsa, o'sha ma'lumotni yangilang va qayta tasdiqlashni so'ra.\n\nBUYURTMA TASDIQLANGANDA:\n\nFoydalanuvchi buyurtmani tasdiqlaganidan keyin javoblarni oxirida aynan quyidagi formatni qaytar:\n\nORDER_CONFIRMED\nname: [ism-sharif]\nphone: [telefon]\nmodel: [model]\ncolor: [rang]\nquantity: [miqdor]\npayment: [to'lov turi]\ndelivery: [Ha yoki Yo'q]\naddress: [manzil]\n\n\"Buyurtma_id\" va \"sana\" qiymatlarini AI Agent o'zi yaratmasin. Bu qiymatlar n8n workflow tomonidan yaratiladi.\n\nAgar foydalanuvchi buyurtmani tasdiqlamagan bo'lsa, \"ORDER_CONFIRMED\" yozmang."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        192,
+        -208
+      ],
+      "id": "22af1b8b-c14e-438c-b14b-5925b7c7f878",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Забираем сырой текст из AI Agent\nlet text =\n  $json.output ??\n  $json.text ??\n  $json.message?.content ??\n  $json.message?.text ??\n  \"\";\n\n// 2. Защита от объектов (если ИИ вернул JSON вместо строки)\nif (typeof text === 'object' && text !== null) {\n  text = JSON.stringify(text, null, 2);\n} else {\n  text = String(text).trim();\n}\n\n// 3. Защита от пустоты\nif (!text) {\n  text = \"Бот вернул пустое сообщение.\";\n}\n\n// 4. Очистка от ВСЕХ скрытых символов разметки Markdown,\n// которые ИИ обожает ставить (точки в списках, дефисы, звездочки)\ntext = text.replace(/[_*\\[\\]()~`>#+\\-=|{}.!]/g, \"\");\n\n// 5. Защита от слишком длинных ответов ИИ (лимит Telegram — 4096)\nif (text.length > 4000) {\n  text = text.substring(0, 4000) + \"\\n...[Текст обрезан из-за лимита длины]\";\n}\n\n// 6. Передаем чистый текст дальше в узел Telegram\nreturn [{\n  json: {\n    text: text\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1008,
+        -144
+      ],
+      "id": "d46516c7-0e74-4a99-909f-6cc038e88c92",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1248,
+        -32
+      ],
+      "id": "613c3abd-bf5a-48c7-9dae-7ee28e8efcf0",
+      "name": "Send a text message",
+      "webhookId": "6a43ad50-2e32-4d16-9d92-7f264fd00254",
+      "credentials": {
+        "telegramApi": {
+          "id": "hHehcABLx0OLN4sU",
+          "name": "sotuvchi bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.4,
+      "position": [
+        416,
+        288
+      ],
+      "id": "a6af2e90-bcc4-4b27-b19e-03c223573650",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "4k4KTalea2UjaPMc",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.voice.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -496,
+        -32
+      ],
+      "id": "8097e102-2e00-4860-92bd-031a510f11a7",
+      "name": "Get a file",
+      "webhookId": "eb215e0a-5477-4bc6-8809-9370c5139f54",
+      "credentials": {
+        "telegramApi": {
+          "id": "hHehcABLx0OLN4sU",
+          "name": "sotuvchi bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3.5-transcribe",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3.5-transcribe"
+        },
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -336,
+        0
+      ],
+      "id": "99ab39a1-c1b6-4500-868e-17aa965ae563",
+      "name": "Transcribe a recording",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Z3fNIbHDDjmdVFvp",
+          "name": "Voice_servive"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "34459ce1-a2cc-455b-a3d3-fdb7972e7333"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "060874d9-08e8-4a8e-a184-8ef00b80cb04",
+                    "leftValue": "={{ $json.message.voice }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": "={{ false }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -624,
+        -144
+      ],
+      "id": "04d33d76-88a4-43a6-8566-8475506fb15b",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        48,
+        112
+      ],
+      "id": "a856730c-394d-4eaa-bdb9-ada387e846a7",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f7d7ea82-3f1c-4871-9fd9-927ccf09a0d8",
+              "name": "user_message",
+              "value": "={{ $json.message.text }}\n",
+              "type": "string"
+            },
+            {
+              "id": "60a9d4ee-2a0c-4d66-a909-a71c22858f79",
+              "name": "sessionId",
+              "value": "={{ $json.message.chat.id }}",
+              "type": "number"
+            },
+            {
+              "id": "7bd2a82c-98de-47b8-8edc-64018a8bce9e",
+              "name": "source",
+              "value": "telegram",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -176,
+        -144
+      ],
+      "id": "82c9a8d6-de92-4402-86d5-9a7a3fe70275",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c9c9d066-fbe4-4106-87c7-cb2f33ea9cb7",
+              "name": "user_message",
+              "value": "={{ $json.content.parts[0].audioTranscription.text }}",
+              "type": "string"
+            },
+            {
+              "id": "47244fc8-1401-4724-9ed7-42ec634dbe30",
+              "name": "sessionId",
+              "value": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+              "type": "number"
+            },
+            {
+              "id": "aeb2a489-ef58-4a9a-bde8-fa2523bb634e",
+              "name": "source",
+              "value": "telegram",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -176,
+        32
+      ],
+      "id": "3a0f8135-3014-4394-bcb9-70d402f72a25",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ou4Z4utpuH0-JOlLj6eAgldhuHTDz8Se3U_7OEYVR_0",
+          "mode": "list",
+          "cachedResultName": "DB_from_users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ou4Z4utpuH0-JOlLj6eAgldhuHTDz8Se3U_7OEYVR_0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Лист1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ou4Z4utpuH0-JOlLj6eAgldhuHTDz8Se3U_7OEYVR_0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "={{ $json.message.from.id }}",
+            "username": "={{ $json.message.from.first_name }}",
+            "comment": "={{ $json.message.text }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "comment",
+              "displayName": "comment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "comment_from_tg_bot",
+              "displayName": "comment_from_tg_bot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "update_id",
+              "displayName": "update_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -288,
+        -464
+      ],
+      "id": "3818eeab-ddcb-4f14-af67-f9acb8399bfb",
+      "name": "DB_from_users",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bgAX3RDWeKQFZO9k",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "=POST",
+        "path": "6d6e723b-1b10-4b56-a43c-c872593a78e8",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -880,
+        128
+      ],
+      "id": "8b401425-05a0-4b4f-8881-d1748410b81c",
+      "name": "Webhook",
+      "webhookId": "6d6e723b-1b10-4b56-a43c-c872593a78e8"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f7d7ea82-3f1c-4871-9fd9-927ccf09a0d8",
+              "name": "user_message",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "60a9d4ee-2a0c-4d66-a909-a71c22858f79",
+              "name": "sessionId",
+              "value": "={{ $json.body.session_id }}",
+              "type": "string"
+            },
+            {
+              "id": "8f4321ee-0f4f-4ec2-8844-9a9f4ea1764a",
+              "name": "source",
+              "value": "website",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -592,
+        176
+      ],
+      "id": "67d1d780-9a0c-42fb-b92b-a3b2ff301bb2",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1040,
+        -336
+      ],
+      "id": "5da5afcf-e5aa-48ab-a97b-b16d085799c2",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.source }}",
+                    "rightValue": "=website",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "34459ce1-a2cc-455b-a3d3-fdb7972e7333"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "060874d9-08e8-4a8e-a184-8ef00b80cb04",
+                    "leftValue": "={{ $json.source }}",
+                    "rightValue": "=telegram",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "7333d0d8-094a-4dc4-820d-569d526a19d4",
+                    "leftValue": "={{ $json.output }}",
+                    "rightValue": "ORDER_CONFIRMED",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": "={{ false }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        -224
+      ],
+      "id": "5f95edea-6bdc-4a8d-a90e-80b10018190d",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "60a9d4ee-2a0c-4d66-a909-a71c22858f79",
+              "name": "source",
+              "value": "={{ $('Merge').first().json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "f118ccc4-e7f9-44df-9c44-cca8592c0e34",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "except",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        512,
+        -208
+      ],
+      "id": "4f4ed960-6ad3-4e54-8e8b-a406ad800e93",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.output || '';\n\nreturn [{\n  json: {\n    order_text: text\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        464
+      ],
+      "id": "bec57c78-1cb1-430e-8f66-6534526a460d",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1GOFY7tThnOuqVmmm9Mv2FmgK6aTkjw1eI0kkbFOVRB0",
+          "mode": "list",
+          "cachedResultName": "buyurtmalar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GOFY7tThnOuqVmmm9Mv2FmgK6aTkjw1eI0kkbFOVRB0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Лист1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GOFY7tThnOuqVmmm9Mv2FmgK6aTkjw1eI0kkbFOVRB0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $json.name }}",
+            "phone": "={{ $json.phone }}",
+            "model": "={{ $json.model }}",
+            "color": "={{ $json.color }}",
+            "quantuty": "={{ $json.quantity }}",
+            "payment": "={{ $json.payment }}",
+            "delivery": "={{ $json.delivery }}",
+            "address": "={{ $json.address }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "model",
+              "displayName": "model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "color",
+              "displayName": "color",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "quantuty",
+              "displayName": "quantuty",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "payment",
+              "displayName": "payment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "delivery",
+              "displayName": "delivery",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "address",
+              "displayName": "address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1744,
+        256
+      ],
+      "id": "714edb45-4624-4bf4-a251-91869617738d",
+      "name": "Buyurmalar_ro`yxati",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bgAX3RDWeKQFZO9k",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2ce37681-89e2-4fa2-999a-b181e9f7e203",
+              "leftValue": "={{ $json.output }} ",
+              "rightValue": "ORDER_CONFIRMED",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1200,
+        304
+      ],
+      "id": "331c6d81-a987-4e7e-b4b3-6a3cfc4e93d8",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1758d0ab-5f13-4c4a-9691-21962f33ac60",
+              "name": "name",
+              "value": "={{ $json.output.match(/name:\\s*(.*)/)?.[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "da4d20f3-53f3-49b3-9d83-83de4bc26ee4",
+              "name": "phone",
+              "value": "={{ $json.output.match(/phone:\\s*(.*)/)?.[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "21f79408-95cd-4489-b757-9b080ece301b",
+              "name": "model",
+              "value": "={{ $json.output.match(/model:\\s*(.*)/)?.[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "ef7b73b6-7ebf-47e7-a022-4605fac71b9d",
+              "name": "color",
+              "value": "={{ $json.output.match(/color:\\s*(.*)/)?.[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "01540776-54e8-4097-8bc3-813605910fb1",
+              "name": "quantity",
+              "value": "={{ $json.output.match(/quantity:\\s*(.*)/)?.[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "065525e8-77e0-4440-9a07-fdc8870f669c",
+              "name": "payment",
+              "value": "={{ $json.output.match(/payment:\\s*(.*)/)?.[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "ac1c9161-4c39-4ab6-b337-0a9cbc4c90c2",
+              "name": "delivery",
+              "value": "={{ $json.output.match(/delivery:\\s*(.*)/)?.[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "f7b05e99-6221-4eda-aa3b-e17fb682231c",
+              "name": "address",
+              "value": "={{ $json.output.match(/address:\\s*(.*)/)?.[1] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1664,
+        -128
+      ],
+      "id": "7c7f1883-8cf3-4af6-a963-dfa05e1d11b7",
+      "name": "Edit Fields4"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tovarlar_ro`yxati": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "Transcribe a recording",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe a recording": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "DB_from_users": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Buyurmalar_ro`yxati",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "359333bb-b896-4f67-a516-9e6652f2f3d0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dab433db43c5a517b934fe5fffe3a5df72ab55f97ccc40d33a7bd062efc9d155"
+  },
+  "id": "K1y5dRmKYEntBjww",
+  "tags": []
+}
