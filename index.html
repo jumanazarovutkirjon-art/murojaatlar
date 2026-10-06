@@ -1089,7 +1089,7 @@ async function loadRequestsFromN8N() {
         }
       );
 
-
+console.log("N8N URL:", CONFIG.GET_REQUESTS_URL);
     if (!response.ok) {
 
       throw new Error(
